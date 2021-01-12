@@ -1,0 +1,88 @@
+CREATE TABLE [dbo].[departments](
+[dept_no] [nvarchar](50) NOT NULL,
+[dept_name] [nvarchar](50) NOT NULL,
+ CONSTRAINT [PK_departments] PRIMARY KEY CLUSTERED
+(
+[dept_no] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+
+CREATE TABLE [dbo].[dept_emp](
+[emp_no] [int] NOT NULL,
+[dept_no] [nvarchar](50) NOT NULL,
+ CONSTRAINT [PK_dept_emp] PRIMARY KEY CLUSTERED
+(
+[emp_no] ASC,
+[dept_no] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+
+CREATE TABLE [dbo].[dept_manager](
+[dept_no] [nvarchar](50) NOT NULL,
+[emp_no] [int] NOT NULL,
+ CONSTRAINT [PK_dept_manager] PRIMARY KEY CLUSTERED
+(
+[dept_no] ASC,
+[emp_no] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+
+CREATE TABLE [dbo].[employees](
+[emp_no] [int] NOT NULL,
+[emp_title_id] [nvarchar](50) NOT NULL,
+[birth_date] [datetime2](7) NOT NULL,
+[first_name] [nvarchar](50) NOT NULL,
+[last_name] [nvarchar](50) NOT NULL,
+[sex] [nvarchar](50) NOT NULL,
+[hire_date] [datetime2](7) NOT NULL,
+ CONSTRAINT [PK_employees] PRIMARY KEY CLUSTERED
+(
+[emp_no] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[employees]  WITH CHECK ADD  CONSTRAINT [FK_employees_employees] FOREIGN KEY([emp_no])
+REFERENCES [dbo].[employees] ([emp_no])
+GO
+
+ALTER TABLE [dbo].[employees] CHECK CONSTRAINT [FK_employees_employees]
+GO
+
+ALTER TABLE [dbo].[employees]  WITH CHECK ADD  CONSTRAINT [FK_employees_titles] FOREIGN KEY([emp_no])
+REFERENCES [dbo].[salaries] ([emp_no])
+GO
+
+ALTER TABLE [dbo].[employees] CHECK CONSTRAINT [FK_employees_titles]
+GO
+
+
+
+
+CREATE TABLE [dbo].[salaries](
+[emp_no] [int] NOT NULL,
+[salary] [int] NOT NULL,
+ CONSTRAINT [PK_salaries] PRIMARY KEY CLUSTERED
+(
+[emp_no] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+
+
+CREATE TABLE [dbo].[titles](
+[title_id] [nvarchar](50) NOT NULL,
+[title] [nvarchar](50) NOT NULL,
+ CONSTRAINT [PK_titles] PRIMARY KEY CLUSTERED
+(
+[title_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
